@@ -1,0 +1,19 @@
+{
+  "name": "ionic-wordpress",
+  "private": "true",
+  "devDependencies": {},
+  "dependencies": {
+    "angular-mocks": "^1.5.9",
+    "angular-cookies": "^1.5.9",
+    "ngCordova": "^0.1.27-alpha",
+    "cryptojslib": "^3.1.2",
+    "angular-local-storage": "^0.5.2",
+    "underscore": "^1.8.3",
+    "ngCordovaMocks": "ng-cordova-mocks#^0.7.0",
+    "ionic": "^1.3.2"
+  },
+  "resolutions": {
+    "angular": "1.5.3",
+    "angular-local-storage": "^0.5.2"
+  }
+}
