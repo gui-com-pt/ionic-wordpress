@@ -1,6 +1,6 @@
 (function(){
 	angular
-		.module('gui.wp', ['ngCordova'])
+		.module('gui.wp', [])
 		.config(['$guiWpProvider', function(guiWpProvider) {
 
 		}])
@@ -505,7 +505,7 @@
                     basic: basic,
                     init: init,
                     isAuthenticated: isAuthenticated,
-                    logout
+                    logout: logout
                 }
             }])
         

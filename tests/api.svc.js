@@ -24,4 +24,5 @@ describe('WP Comment Service', function() {
 		var config = $guiWpApi.parseOptions(options, {url: '/posts?_embed'});
 		expect(config.url).toBe('/posts?_embed');
 	});
+	
 });

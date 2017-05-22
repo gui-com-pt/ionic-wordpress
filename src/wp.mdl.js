@@ -1,6 +1,6 @@
 (function(){
 	angular
-		.module('gui.wp', ['ngCordova'])
+		.module('gui.wp', [])
 		.config(['$guiWpProvider', function(guiWpProvider) {
 
 		}])
