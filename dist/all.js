@@ -361,7 +361,7 @@
                         result.embed = true;
                     }
 
-                    if(result.hasOwnProperty('parent')) {
+                    if(result.hasOwnProperty('parent') && _.isObject(result.parent)) {
                         result.parent = decorateResult(result.parent);
                     }
                     
