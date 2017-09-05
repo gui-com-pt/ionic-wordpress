@@ -360,6 +360,10 @@
 
                         result.embed = true;
                     }
+
+                    if(result.hasOwnProperty('parent')) {
+                        result.parent = decorateResult(result.parent);
+                    }
                     
                     return result;
                 }
