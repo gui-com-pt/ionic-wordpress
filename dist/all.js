@@ -365,6 +365,7 @@
                         var a = result;
                         var parent = decorateResult(result.parent);
                         result = a;
+                        result.parent = parent;
                     }
                     
                     return result;
