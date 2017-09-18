@@ -16,6 +16,10 @@
                 //return $guiWpApi.get('/posts/' + id + '?_embed');
             }
 
+            function post(data, options) {
+                return $guiWpApi.post(data, $guiWpApi.parseOptions(options, {url: '/posts/',}));
+            }
+
             return {
                 getList: getList,
                 get: get
