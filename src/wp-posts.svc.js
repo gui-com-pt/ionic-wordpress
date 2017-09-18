@@ -22,7 +22,8 @@
 
             return {
                 getList: getList,
-                get: get
+                get: get,
+                post: post
             };
         }]);
 })();

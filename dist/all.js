@@ -692,7 +692,8 @@
 
             return {
                 getList: getList,
-                get: get
+                get: get,
+                post: post
             };
         }]);
 })();
@@ -753,9 +754,14 @@
                 return $guiWpWcApi.get($guiWpApi.parseOptions(options, {url: '/products/' + id, data: {'_embed': 1}}));
             }
 
+            function post(data, options) {
+                return $guiWpApi.post(data, $guiWpApi.parseOptions(options, {url: '/products/',}));
+            }
+
             return {
                 getList: getList,
-                get: get
+                get: get,
+                post: post
             };
         }]);
 })();
