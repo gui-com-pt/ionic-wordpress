@@ -402,6 +402,9 @@
                     setAuthorization: setAuthorization,
                     apiBase: function() {
                         return api;
+                    },
+                    setApi: function(val){
+                        api = val;
                     }
                 }
             }]);
