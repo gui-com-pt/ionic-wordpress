@@ -90,7 +90,7 @@
                             result.featured_image = result._embedded['wp:featuredmedia'][0].source_url;    
                         }
                         
-                        if(result._embedded.hasOwnProperty('wp:term')) {
+                        if(result._embedded.hasOwnProperty('wp:term') && _.isObject(result._embedded['wp:term'][0][0])) {
                             result.category = result._embedded['wp:term'][0][0].name;
                             result.category_id = result._embedded['wp:term'][0][0].id;
 
