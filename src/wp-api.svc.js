@@ -71,14 +71,14 @@
                     var properties = ['excerpt', 'content'];
                     
                     for (var i = 0; i < properties.length; i++) {
-                        if(result.hasOwnProperty(properties[i])) {
+                        if(result.hasOwnProperty(properties[i]) && result[properties[i]].hasOwnProperty('rendered')) {
                             result[properties[i]] = $sce.trustAsHtml(result[properties[i]].rendered);
                         }
                     }
 
                     properties = ['title', 'guid'];
                     for (var i = 0; i < properties.length; i++) {
-                        if(result.hasOwnProperty(properties[i])) {
+                        if(result.hasOwnProperty(properties[i]) && result[properties[i]].hasOwnProperty('rendered')) {
                             result[properties[i]] = result[properties[i]].rendered;
                         }
                     }

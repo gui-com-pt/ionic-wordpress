@@ -258,8 +258,8 @@
 (function(){
     angular
         .module('gui.wp')
-        .factory('$guiWpApi', ['$http', '$sce', 'makeu', '$log',
-            function($http, $sce, makeu, $log) {
+        .factory('$guiWpApi', ['$http', '$sce', 'makeu', '$log', '$q',
+            function($http, $sce, makeu, $log, $q) {
 
                 var api = '/wp-json/wp/v2';
 
@@ -279,6 +279,11 @@
                         url: makeu.apiUrl() + api + url, 
                         cache: true
                     };
+
+                    function apiError(err) {
+                        $log.error('API request failed: ' + JSON.stringify(err));
+                        return $q.reject(err);
+                    }
 
                     switch(method) {
                         case 'GET':
@@ -310,7 +315,7 @@
                             } else {
                                 return decorateResult(response.data);
                             }
-                        });
+                        }).catch(apiError);
 
                 }
 
@@ -323,14 +328,14 @@
                     var properties = ['excerpt', 'content'];
                     
                     for (var i = 0; i < properties.length; i++) {
-                        if(result.hasOwnProperty(properties[i])) {
+                        if(result.hasOwnProperty(properties[i]) && result[properties[i]].hasOwnProperty('rendered')) {
                             result[properties[i]] = $sce.trustAsHtml(result[properties[i]].rendered);
                         }
                     }
 
                     properties = ['title', 'guid'];
                     for (var i = 0; i < properties.length; i++) {
-                        if(result.hasOwnProperty(properties[i])) {
+                        if(result.hasOwnProperty(properties[i]) && result[properties[i]].hasOwnProperty('rendered')) {
                             result[properties[i]] = result[properties[i]].rendered;
                         }
                     }
