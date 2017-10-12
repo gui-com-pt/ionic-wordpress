@@ -1,8 +1,8 @@
 (function(){
     angular
         .module('gui.wp')
-        .factory('$guiWpApi', ['$http', '$sce', 'makeu', '$log',
-            function($http, $sce, makeu, $log) {
+        .factory('$guiWpApi', ['$http', '$sce', 'makeu', '$log', '$q',
+            function($http, $sce, makeu, $log, $q) {
 
                 var api = '/wp-json/wp/v2';
 
@@ -22,6 +22,11 @@
                         url: makeu.apiUrl() + api + url, 
                         cache: true
                     };
+
+                    function apiError(err) {
+                        $log.error('API request failed: ' + JSON.stringify(err));
+                        return $q.reject(err);
+                    }
 
                     switch(method) {
                         case 'GET':
@@ -53,7 +58,7 @@
                             } else {
                                 return decorateResult(response.data);
                             }
-                        });
+                        }).catch(apiError);
 
                 }
 
