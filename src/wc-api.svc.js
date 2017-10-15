@@ -21,7 +21,9 @@
                 switch(method) {
                     case 'GET':
                         req.params = data;
-                        return httpOfflineCache.get(req.url, req);
+                        return httpOfflineCache.get(req.url, {
+                            params: data
+                        });
                         break;
                     case 'POST':
                     case 'PUT':

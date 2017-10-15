@@ -1,8 +1,8 @@
 (function(){
     angular
         .module('gui.wp')
-        .factory('$guiWpApi', ['$http', '$sce', 'makeu', '$log', '$q',
-            function($http, $sce, makeu, $log, $q) {
+        .factory('$guiWpApi', ['$http', '$sce', 'makeu', '$log', '$q', 'httpOfflineCache',
+            function($http, $sce, makeu, $log, $q, httpOfflineCache) {
 
                 var api = '/wp-json/wp/v2';
 
@@ -30,7 +30,9 @@
 
                     switch(method) {
                         case 'GET':
-                            req.params = data;
+                            return httpOfflineCache.get(req.url, {
+                                params: data
+                            });
                             break;
                         case 'POST':
                         case 'PUT':
