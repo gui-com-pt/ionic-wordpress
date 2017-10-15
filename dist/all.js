@@ -157,6 +157,29 @@
                 return callApi(options.url, 'GET', options.data);
             }
 
+            function transformResponse(response) {
+                if (response.data instanceof Array) {
+                    var c = 0;
+                    var items = response.data.map(function(item) {
+                        c++;
+                        var item = decorateResult(item);
+                        if(c === 3) {
+                            item.featured = true;
+                            c = 0;
+                        }
+                        return item;
+                    });
+                    return items;
+                } else {
+                    return decorateResult(response.data);
+                }
+            }
+
+            function apiError(err) {
+                $log.error('API request failed: ' + JSON.stringify(err));
+                return $q.reject(err);
+            }
+
             var callApi = function(url, method, data) {
                 var req = { 
                     method: method, 
@@ -169,7 +192,8 @@
                         req.params = data;
                         return httpOfflineCache.get(req.url, {
                             params: data
-                        });
+                        }).then(transformResponse)
+                        .catch(apiError);
                         break;
                     case 'POST':
                     case 'PUT':
@@ -181,23 +205,8 @@
                 }
 
                 return $http(req)
-                    .then(function(response) {
-                        if (response.data instanceof Array) {
-                            var c = 0;
-                            var items = response.data.map(function(item) {
-                                c++;
-                                var item = decorateResult(item);
-                                if(c === 3) {
-                                    item.featured = true;
-                                    c = 0;
-                                }
-                                return item;
-                            });
-                            return items;
-                        } else {
-                            return decorateResult(response.data);
-                        }
-                    });
+                    .then(transformResponse)
+                    .catch(apiError);
 
             }
             
@@ -270,6 +279,29 @@
                     
                 }
 
+                function transformResponse(response) {
+                    if (response.data instanceof Array) {
+                        var c = 0;
+                        var items = response.data.map(function(item) {
+                            c++;
+                            var item = decorateResult(item);
+                            if(c === 3) {
+                                item.featured = true;
+                                c = 0;
+                            }
+                            return item;
+                        });
+                        return items;
+                    } else {
+                        return decorateResult(response.data);
+                    }
+                }
+
+                function apiError(err) {
+                    $log.error('API request failed: ' + JSON.stringify(err));
+                    return $q.reject(err);
+                }
+
                 /**
                  * Call Wordpress Rest API
                  * @param  {string} url    endpoint
@@ -283,16 +315,12 @@
                         cache: true
                     };
 
-                    function apiError(err) {
-                        $log.error('API request failed: ' + JSON.stringify(err));
-                        return $q.reject(err);
-                    }
-
                     switch(method) {
                         case 'GET':
                             return httpOfflineCache.get(req.url, {
                                 params: data
-                            });
+                            }).then(transformResponse)
+                            .catch(apiError);
                             break;
                         case 'POST':
                         case 'PUT':
@@ -304,23 +332,8 @@
                     }
 
                     return $http(req)
-                        .then(function(response) {
-                            if (response.data instanceof Array) {
-                                var c = 0;
-                                var items = response.data.map(function(item) {
-                                    c++;
-                                    var item = decorateResult(item);
-                                    if(c === 3) {
-                                        item.featured = true;
-                                        c = 0;
-                                    }
-                                    return item;
-                                });
-                                return items;
-                            } else {
-                                return decorateResult(response.data);
-                            }
-                        }).catch(apiError);
+                        .then(transformResponse)
+                        .catch(apiError);
 
                 }
 
