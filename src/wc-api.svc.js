@@ -1,8 +1,8 @@
 (function(){
 	angular
 		.module('gui.wp')
-		.service('$guiWpWcApi', ['$q', 'makeu', '$http', '$log',
-            function($q, makeu, $http, $log){
+		.service('$guiWpWcApi', ['$q', 'makeu', '$http', '$log', 'httpOfflineCache',
+            function($q, makeu, $http, $log, httpOfflineCache){
 
             var wc = null;
             var api = '/wp-json/wc/v1';
@@ -21,6 +21,7 @@
                 switch(method) {
                     case 'GET':
                         req.params = data;
+                        return httpOfflineCache.get(req.url, req);
                         break;
                     case 'POST':
                     case 'PUT':

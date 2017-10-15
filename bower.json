@@ -10,7 +10,8 @@
     "angular-local-storage": "^0.5.2",
     "underscore": "^1.8.3",
     "ngCordovaMocks": "ng-cordova-mocks#^0.7.0",
-    "ionic": "^1.3.2"
+    "ionic": "^1.3.2",
+    "ionic-http-offline-cache": "^1.0.0"
   },
   "resolutions": {
     "angular": "1.5.3",
